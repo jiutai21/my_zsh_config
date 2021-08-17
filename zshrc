@@ -56,8 +56,9 @@ plugins=(git
     python 
     pip svn  
     zsh-autosuggestions zsh-syntax-highlighting 
-    debain encode64 history jsontools tumx tmuxinator
-    sudo)
+    encode64 history jsontools
+    sudo
+    zsh-completions)
 
 source $ZSH/oh-my-zsh.sh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=blue"
@@ -78,3 +79,28 @@ bindkey '^j' autosuggest-accept
 #
 # Example aliases
 alias ls='ls --color=auto'
+autoload -U compinit && compinit
+
+git_proxy_on(){
+    git config --global http.proxy "http://127.0.0.1:8080"
+    git config --global https.proxy "http://127.0.0.1:8080"
+}
+git_proxy_off(){
+    git config --global --unset http.proxy
+    git config --global --unset https.proxy
+}
+
+proxy_on(){
+    export HTTP_PROXY=http://127.0.0.1:8080
+    export HTTPS_PROXY=http://127.0.0.1:8080
+    export http_proxy=http://127.0.0.1:8080
+    export https_proxy=http://127.0.0.1:8080
+}
+proxy_off(){
+    unset HTTP_PROXY
+    unset HTTPS_PROXY
+    unset http_proxy
+    unset https_proxy
+}
+
+#export RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup
